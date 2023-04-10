@@ -17,7 +17,7 @@ const Blog = () => {
         })
 
         let blogId = '3288277498033260410'
-        let apiKey = 'AIzaSyBml_tOk968aWypNikd48KRiGNITVkmmj0'
+        let apiKey = 'AIzaSyAwo0hFxpZBlBSqjwxO3F29A0ICpVnnHG8'
 
         fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${apiKey}&maxResults=100`)
             .then(response => response.json())
