@@ -72,6 +72,7 @@ body {
         padding-top: 30px;
         height: 100px;
         width: 100%;
+        padding-left: unset;
     }
     .page-container > #banner > svg {
         height: 100px;
