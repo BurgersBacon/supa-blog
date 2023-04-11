@@ -15,6 +15,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 30%;
+    padding-left: 30px;
 }
 .page-container > #posts {
     padding: 30px;
@@ -29,6 +30,7 @@ body {
     box-shadow: black 1px 1px 6px;
     font-weight: 100;
     width: 60%;
+    overflow-wrap: break-word;
 }
 .page-container > #posts > div > h2 {
     margin-bottom: 0;
@@ -45,4 +47,48 @@ body {
 @font-face {
     font-family: canterbury;
     src: url(../assets/fonts/canterbury.regular.ttf);
+}
+
+@media (max-width: 980px) {
+    .page-container > #posts > div {
+        width: 80%;
+    }
+    .page-container > #banner > svg {
+        height: 140px;
+        width: 140px;
+    }
+    .page-container > #banner > svg > image{
+        height: 140px;
+        width: 140px;
+    }
+    
+}
+@media (max-width: 880px) {
+    .page-container {
+        flex-direction: column;
+        height: 100%;
+    }
+    .page-container > #banner {
+        padding-top: 30px;
+        height: 100px;
+        width: 100%;
+    }
+    .page-container > #banner > svg {
+        height: 100px;
+        width: 100px;
+    }
+    .page-container > #banner > svg > image{
+        height: 100%;
+        width: 100%;
+    }
+    .page-container > #posts {
+        width: calc(100% - 60px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: inherit;
+    }
+    .page-container > #posts > div {
+        width: calc(90% - 100px);
+    }
 }
