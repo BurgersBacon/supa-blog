@@ -63,7 +63,7 @@ body {
     }
     
 }
-@media (max-width: 880px) {
+@media (max-width: 820px) {
     .page-container {
         flex-direction: column;
         height: 100%;
