@@ -49,7 +49,7 @@ body {
     src: url(../assets/fonts/canterbury.regular.ttf);
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1080px) {
     .page-container > #posts > div {
         width: 80%;
     }
