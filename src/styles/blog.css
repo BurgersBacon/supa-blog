@@ -45,6 +45,15 @@ body {
 .page-container > #posts > div > p {
     color: #5b5b5b;
 }
+.separator a {
+    margin: unset !important;
+}
+#posts img {
+    width: 100%;
+}
+iframe {
+    width: 100%;
+}
 @font-face {
     font-family: canterbury;
     src: url(../assets/fonts/canterbury.regular.ttf);
