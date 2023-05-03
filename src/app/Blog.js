@@ -10,6 +10,7 @@ const Blog = () => {
     const [posts, setPosts] = useState([]);
     const [nextPageToken, setNextPageToken] = useState('');
     const [showLoading, setShowLoading] = useState(true);
+    const [fetchingPosts, setFetchingPosts] = useState(true);
 
     const blogId = '3288277498033260410'
     const apiKey = 'AIzaSyAwo0hFxpZBlBSqjwxO3F29A0ICpVnnHG8'
@@ -30,23 +31,27 @@ const Blog = () => {
     function handleScroll(e) {
         if (showLoading) {
             const { scrollTop, clientHeight, scrollHeight } = e.target;
-            if (scrollTop + clientHeight === scrollHeight) {
+            if (scrollTop + clientHeight >= scrollHeight - 80) {
                 getPosts()
             }
         }
     }
 
     function getPosts() {
-        fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${apiKey}&maxResults=5${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.items)
-                if (!data.nextPageToken)
-                    setShowLoading(false)
-                setPosts([...posts, ...data.items])
-                setNextPageToken(data.nextPageToken)
-            })
-            .catch(error => console.error(error));
+        if (fetchingPosts) {
+            setFetchingPosts(false)
+            fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${apiKey}&maxResults=5${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.items)
+                    if (!data.nextPageToken)
+                        setShowLoading(false)
+                    setPosts([...posts, ...data.items])
+                    setNextPageToken(data.nextPageToken)
+                    setFetchingPosts(true)
+                })
+                .catch(error => console.error(error));
+        }
     }
 
     return (
