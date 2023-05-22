@@ -15,6 +15,22 @@ const Blog = () => {
     const blogId = '3288277498033260410'
     const apiKey = 'AIzaSyAwo0hFxpZBlBSqjwxO3F29A0ICpVnnHG8'
 
+    const getPosts = useCallback(() => {
+        if (fetchingPosts) {
+            setFetchingPosts(false)
+            fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${apiKey}&maxResults=5${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.items)
+                    if (!data.nextPageToken)
+                        setShowLoading(false)
+                    setPosts([...posts, ...data.items])
+                    setNextPageToken(data.nextPageToken)
+                    setFetchingPosts(true)
+                })
+                .catch(error => console.error(error));
+        }
+    }, [])
     
     useEffect(() => {
         const bannerContainer = bannerRef.current;
@@ -37,22 +53,6 @@ const Blog = () => {
         }
     }
 
-    function getPosts() {
-        if (fetchingPosts) {
-            setFetchingPosts(false)
-            fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${apiKey}&maxResults=5${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.items)
-                    if (!data.nextPageToken)
-                        setShowLoading(false)
-                    setPosts([...posts, ...data.items])
-                    setNextPageToken(data.nextPageToken)
-                    setFetchingPosts(true)
-                })
-                .catch(error => console.error(error));
-        }
-    }
 
     return (
         <div className="page-container">
