@@ -26,7 +26,7 @@ const Blog = () => {
 
         // check posts
         getPosts()
-    }, [])
+    }, [getPosts])
 
     function handleScroll(e) {
         if (showLoading) {
