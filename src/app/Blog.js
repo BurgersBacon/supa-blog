@@ -15,7 +15,7 @@ const Blog = () => {
     const blogId = '3288277498033260410'
     const apiKey = 'AIzaSyAwo0hFxpZBlBSqjwxO3F29A0ICpVnnHG8'
 
-    const getPosts = useCallback(() => {
+    const getPosts = () => {
         if (fetchingPosts) {
             setFetchingPosts(false)
             fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${apiKey}&maxResults=5${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`)
@@ -30,7 +30,7 @@ const Blog = () => {
                 })
                 .catch(error => console.error(error));
         }
-    }, [])
+    }
     
     useEffect(() => {
         const bannerContainer = bannerRef.current;
@@ -42,7 +42,7 @@ const Blog = () => {
 
         // check posts
         getPosts()
-    }, [getPosts])
+    }, [])
 
     function handleScroll(e) {
         if (showLoading) {
