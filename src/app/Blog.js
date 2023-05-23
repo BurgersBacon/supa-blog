@@ -17,22 +17,25 @@ const Blog = () => {
 
     
     useEffect(() => {
-        const bannerContainer = bannerRef.current;
-        const postsContainer = postsRef.current;
-        bannerContainer.addEventListener("wheel", function(e){
-            e.preventDefault();        
-            postsContainer.scrollBy(e.deltaX, e.deltaY);
-        })
-
-        // check posts
-        getPosts()
+        // if there is not posts, start event and first post load
+        if (!posts.length) {
+            const bannerContainer = bannerRef.current;
+            const postsContainer = postsRef.current;
+            bannerContainer.addEventListener("wheel", function(e){
+                e.preventDefault();        
+                postsContainer.scrollBy(e.deltaX, e.deltaY);
+            })
+    
+            // get first 5 posts
+            getPosts()
+        }
     })
 
-    function handleTouchMove(event) {
-        const distanceFromBottom = event.target.scrollHeight - (event.target.scrollTop + event.target.clientHeight);
-        console.log(distanceFromBottom, event.target.scrollHeight , event.target.scrollTop, event.target.clientHeight)
-        // setIsNearBottom(distanceFromBottom <= 90);
-    }
+    // function handleTouchMove(event) {
+    //     const distanceFromBottom = event.target.scrollHeight - (event.target.scrollTop + event.target.clientHeight);
+    //     console.log(distanceFromBottom, event.target.scrollHeight , event.target.scrollTop, event.target.clientHeight)
+    //     // setIsNearBottom(distanceFromBottom <= 90);
+    // }
 
     function handleScroll(e) {
         console.log(e.target.scrollTop,e.target.clientHeight, e.target.scrollHeight)
@@ -69,7 +72,7 @@ const Blog = () => {
                     <image href={supaHax0rIcon} height="200" width="200"/>
                 </svg>
             </div>
-            <div id="posts" ref={postsRef} onScroll={handleScroll} onTouchMove={handleTouchMove}>
+            <div id="posts" ref={postsRef} onScroll={handleScroll}>
                 {posts && posts.length > 0 && posts.map((post) => (
                     <div className="post" key={post.id}>
                         <h2>{post.title}</h2>
