@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import moment from 'moment';
 import '@fortawesome/fontawesome-free/css/all.css';
 import supaHax0rIcon from '../assets/images/l33t_supa_h4x0r_icon.svg'
@@ -15,7 +15,36 @@ const Blog = () => {
     const blogId = '3288277498033260410'
     const apiKey = 'AIzaSyAwo0hFxpZBlBSqjwxO3F29A0ICpVnnHG8'
 
-    const getPosts = () => {
+    
+    useEffect(() => {
+        const bannerContainer = bannerRef.current;
+        const postsContainer = postsRef.current;
+        bannerContainer.addEventListener("wheel", function(e){
+            e.preventDefault();        
+            postsContainer.scrollBy(e.deltaX, e.deltaY);
+        })
+
+        // check posts
+        getPosts()
+    })
+
+    function handleTouchMove(event) {
+        const distanceFromBottom = event.target.scrollHeight - (event.target.scrollTop + event.target.clientHeight);
+        console.log(distanceFromBottom, event.target.scrollHeight , event.target.scrollTop, event.target.clientHeight)
+        // setIsNearBottom(distanceFromBottom <= 90);
+    }
+
+    function handleScroll(e) {
+        console.log(e.target.scrollTop,e.target.clientHeight, e.target.scrollHeight)
+        if (showLoading) {
+            const { scrollTop, clientHeight, scrollHeight } = e.target;
+            if (scrollTop + clientHeight >= scrollHeight - 80) {
+                getPosts()
+            }
+        }
+    }
+
+    function getPosts() {
         if (fetchingPosts) {
             setFetchingPosts(false)
             fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${apiKey}&maxResults=5${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`)
@@ -31,28 +60,6 @@ const Blog = () => {
                 .catch(error => console.error(error));
         }
     }
-    
-    useEffect(() => {
-        const bannerContainer = bannerRef.current;
-        const postsContainer = postsRef.current;
-        bannerContainer.addEventListener("wheel", function(e){
-            e.preventDefault();        
-            postsContainer.scrollBy(e.deltaX, e.deltaY);
-        })
-
-        // check posts
-        getPosts()
-    }, [])
-
-    function handleScroll(e) {
-        if (showLoading) {
-            const { scrollTop, clientHeight, scrollHeight } = e.target;
-            if (scrollTop + clientHeight >= scrollHeight - 80) {
-                getPosts()
-            }
-        }
-    }
-
 
     return (
         <div className="page-container">
@@ -62,7 +69,7 @@ const Blog = () => {
                     <image href={supaHax0rIcon} height="200" width="200"/>
                 </svg>
             </div>
-            <div id="posts" ref={postsRef} onScroll={handleScroll}>
+            <div id="posts" ref={postsRef} onScroll={handleScroll} onTouchMove={handleTouchMove}>
                 {posts && posts.length > 0 && posts.map((post) => (
                     <div className="post" key={post.id}>
                         <h2>{post.title}</h2>
