@@ -10,58 +10,61 @@ const Blog = () => {
     const [posts, setPosts] = useState([]);
     const [nextPageToken, setNextPageToken] = useState('');
     const [showLoading, setShowLoading] = useState(true);
-    const [fetchingPosts, setFetchingPosts] = useState(true);
+    const [fetchingPosts, setFetchingPosts] = useState(false);
+
+    const fetchingPostsRef = useRef(showLoading);
+    const nextPageTokenRef = useRef(nextPageToken);
 
     const blogId = '3288277498033260410'
     const apiKey = 'AIzaSyAwo0hFxpZBlBSqjwxO3F29A0ICpVnnHG8'
 
+    useEffect(() => {
+        fetchingPostsRef.current = fetchingPosts;
+        nextPageTokenRef.current = nextPageToken;
+        postsRef.current = posts;
+
+      }, [fetchingPosts, nextPageToken, posts]);
     
     useEffect(() => {
         // if there is not posts, start event and first post load
-        if (!posts.length) {
+        if (!posts.length && !fetchingPosts) {
             const bannerContainer = bannerRef.current;
             const postsContainer = postsRef.current;
             bannerContainer.addEventListener("wheel", function(e){
                 e.preventDefault();        
                 postsContainer.scrollBy(e.deltaX, e.deltaY);
             })
+
+            window.addEventListener("scroll", handleScroll);
+            document.getElementById('posts').addEventListener("scroll", handleScroll);
     
             // get first 5 posts
             getPosts()
         }
     })
 
-    // function handleTouchMove(event) {
-    //     const distanceFromBottom = event.target.scrollHeight - (event.target.scrollTop + event.target.clientHeight);
-    //     console.log(distanceFromBottom, event.target.scrollHeight , event.target.scrollTop, event.target.clientHeight)
-    //     // setIsNearBottom(distanceFromBottom <= 90);
-    // }
-
     function handleScroll(e) {
-        console.log(e.target.scrollTop,e.target.clientHeight, e.target.scrollHeight)
-        if (showLoading) {
-            const { scrollTop, clientHeight, scrollHeight } = e.target;
-            if (scrollTop + clientHeight >= scrollHeight - 80) {
-                getPosts()
-            }
+        let target = e.target.documentElement ? e.target.documentElement : e.target
+        const { scrollTop, clientHeight, scrollHeight } = target;
+        if (!fetchingPostsRef.current && scrollTop + clientHeight >= scrollHeight - 80) {
+            getPosts()
         }
     }
 
     function getPosts() {
-        if (fetchingPosts) {
-            setFetchingPosts(false)
-            fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${apiKey}&maxResults=5${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.items)
-                    if (!data.nextPageToken)
-                        setShowLoading(false)
-                    setPosts([...posts, ...data.items])
-                    setNextPageToken(data.nextPageToken)
-                    setFetchingPosts(true)
-                })
-                .catch(error => console.error(error));
-        }
+        setFetchingPosts(true)
+        fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?key=${apiKey}&maxResults=5${nextPageTokenRef.current ? `&pageToken=${nextPageTokenRef.current}` : ''}`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.nextPageToken)
+                    setShowLoading(false)
+                setPosts([...postsRef.current, ...data.items])
+                setNextPageToken(data.nextPageToken)
+                setTimeout(() => {
+                    setFetchingPosts(false)
+                }, 500)
+            })
+            .catch(error => console.error(error));
     }
 
     return (
@@ -72,7 +75,7 @@ const Blog = () => {
                     <image href={supaHax0rIcon} height="200" width="200"/>
                 </svg>
             </div>
-            <div id="posts" ref={postsRef} onScroll={handleScroll}>
+            <div id="posts" ref={postsRef}>
                 {posts && posts.length > 0 && posts.map((post) => (
                     <div className="post" key={post.id}>
                         <h2>{post.title}</h2>
