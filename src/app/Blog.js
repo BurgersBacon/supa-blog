@@ -78,7 +78,7 @@ const Blog = () => {
             <div id="posts" ref={postsRef}>
                 {posts && posts.length > 0 && posts.map((post) => (
                     <div className={`post ${post.labels && post.labels && post.labels.includes('scripture') ? 'scripture' : ''}`} key={post.id}>
-                        <h2>{post.title}</h2>
+                        <h2>{post.title} PEZ</h2>
                         <span className="date">{moment(post.updated).format('Do MMMM YYYY')}</span>
                         <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
                     </div>
