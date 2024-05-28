@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import moment from 'moment';
+import parse from 'html-react-parser';
+
 import '@fortawesome/fontawesome-free/css/all.css';
 import supaHax0rIcon from '../assets/images/l33t_supa_h4x0r_icon.svg'
 
@@ -17,6 +19,30 @@ const Blog = () => {
 
     const blogId = '3288277498033260410'
     const apiKey = 'AIzaSyAwo0hFxpZBlBSqjwxO3F29A0ICpVnnHG8'
+
+    const MusicPlayerComponent = ({ href }) => {
+        return <a 
+            className="music-player"
+            target="_blank"
+            href={href}
+        >
+            <span className="fa fa-play"></span>
+            <div>Play</div>
+        </a>;
+    };
+
+    const replaceLinks = (htmlString) => {
+        const options = {
+            replace: (domNode) => {
+                if (domNode.name === 'a' && domNode.attribs && (domNode.attribs.href.includes('youtube.com') || domNode.attribs.href.includes('youtu.be') || domNode.attribs.href.includes('spotify.com'))) {
+                    return (
+                        <MusicPlayerComponent href={domNode.attribs.href} />
+                    );
+                }
+            },
+        };
+        return parse(htmlString, options);
+    };
 
     useEffect(() => {
         fetchingPostsRef.current = fetchingPosts;
@@ -58,7 +84,13 @@ const Blog = () => {
             .then(data => {
                 if (!data.nextPageToken)
                     setShowLoading(false)
-                setPosts([...postsRef.current, ...data.items])
+
+                let formatedItems = data.items.map(item => {
+                    item.content = replaceLinks(item.content)
+                    return item
+                })
+
+                setPosts([...postsRef.current, ...formatedItems])
                 setNextPageToken(data.nextPageToken)
                 setTimeout(() => {
                     setFetchingPosts(false)
@@ -75,12 +107,18 @@ const Blog = () => {
                     <image href={supaHax0rIcon} height="200" width="200"/>
                 </svg>
             </div>
-            <div id="posts" ref={postsRef}>
+            <div id="posts" className={posts.length ? 'shown' : ''} ref={postsRef}>
                 {posts && posts.length > 0 && posts.map((post) => (
                     <div className={`post ${post.labels && post.labels && post.labels.includes('scripture') ? 'scripture' : ''}`} key={post.id}>
-                        <h2>{post.title}</h2>
+                        {post.title &&
+                            <h2>{post.title}</h2> 
+                        }
                         <span className="date">{moment(post.updated).format('Do MMMM YYYY')}</span>
-                        <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
+                        <div
+                            className="post-content" 
+                        >
+                                {post.content}
+                            </div>
                     </div>
                 ))}
                 {showLoading && <div className="loading-posts"><i className="fas fa-spinner fa-pulse"></i></div>}

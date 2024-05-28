@@ -1,10 +1,17 @@
 {
   "short_name": "Archives",
   "name": "Supa Haxor Archives",
+  "description": "Supa Haxor's Blog",
   "icons": [
     {
       "src": "icons/manifest-icon-192.maskable.png",
       "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/manifest-icon-192.maskable.png",
+      "sizes": "128x128",
       "type": "image/png",
       "purpose": "any"
     },

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/blog.css';
+import './styles/blog.scss';
 import Blog from './app/Blog';
 
 const App = () => {
