@@ -36,7 +36,7 @@ const Blog = () => {
             replace: (domNode) => {
                 if (domNode.name === 'a' && domNode.attribs && (domNode.attribs.href.includes('youtube.com') || domNode.attribs.href.includes('youtu.be') || domNode.attribs.href.includes('spotify.com'))) {
                     return (
-                        <MusicPlayerComponent href={domNode.attribs.href} />
+                        <MusicPlayerComponent href={domNode.attribs.href} rel="noopener noreferrer"/>
                     );
                 }
             },
