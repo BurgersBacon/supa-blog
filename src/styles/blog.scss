@@ -12,6 +12,10 @@ body {
     }
 }
 
+a[href^="https://blogger.googleusercontent.com"] {
+    margin: 0 !important
+}
+
 @media (max-width: 1080px) {
     body .page-container {
         flex-direction: column;
