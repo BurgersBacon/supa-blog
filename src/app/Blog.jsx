@@ -1,5 +1,5 @@
 // dependencies
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 // components
@@ -74,7 +74,7 @@ const Blog = () => {
         window.addEventListener('scroll', onScroll, { passive: true });
 
         return () => window.removeEventListener('scroll', onScroll);
-    }, [posts, nextPageToken, showLoading, fetchingPosts, blogTag]);
+    }, [handleScroll, posts, nextPageToken, showLoading, fetchingPosts, blogTag]);
     
     // this useEffect gets triggered just once (when the page loads)
     useEffect(() => {
