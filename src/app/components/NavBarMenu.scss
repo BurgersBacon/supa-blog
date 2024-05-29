@@ -11,13 +11,11 @@
     flex-wrap: wrap;
     margin-top: 30px;
     margin: 0px 0px 30px 0px;
-    margin-top: -160px;
     opacity: 0;
     transition: margin-top .3s ease-in-out, opacity .3s ease-in-out;
     z-index: 1;
     display: none;
     &.opened {
-       margin-top: 0;
        opacity: 1;
     }
     > div, > a {
@@ -27,7 +25,7 @@
         cursor: pointer;
         color: #765e84;
         transition: color .3s;
-        &:hover {
+        &.selected,&:hover {
             color: #000000bf;
         }
     }

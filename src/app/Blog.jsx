@@ -15,21 +15,17 @@ const Blog = () => {
     const [fetchingPosts, setFetchingPosts] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [blogTag, setBlogTag] = useState(null);
+    const [menuHeight, setMenuHeight] = useState(null);
 
     const blogId = '3288277498033260410'
     const apiKey = 'AIzaSyAwo0hFxpZBlBSqjwxO3F29A0ICpVnnHG8'
 
-    // checks scroll event (and loads next 5 posts when at the bottom)
-    function handleScroll(e) {
-        let target = e.target.documentElement ? e.target.documentElement : e.target
-        const { scrollTop, clientHeight, scrollHeight } = target;
-
-        if (showLoading && !fetchingPosts && scrollTop + clientHeight >= scrollHeight - 80)
-            getPosts()
-    }
-
+    // menu methods
     function toggleMenu() {
         setShowMenu(!showMenu)
+    }
+    function updateHeightMenu(height) {
+        setMenuHeight(height)
     }
 
     // gets posts from blogger API
@@ -58,11 +54,26 @@ const Blog = () => {
                 setNextPageToken(data.nextPageToken)
                 setShowLoading(data.nextPageToken && true)
 
+                if(newSearch)
+                    setShowMenu(false)
+
                 setTimeout(() => {
                     setFetchingPosts(false)
                 }, 500)
             })
             .catch(error => console.error(error));
+    }
+
+    // checks scroll event (and loads next 5 posts when at the bottom)
+    function handleScroll(e) {
+        let target = e.target.documentElement ? e.target.documentElement : e.target
+        const { scrollTop, clientHeight, scrollHeight } = target;
+
+        if (menuHeight && scrollTop > menuHeight)
+            setShowMenu(false)
+
+        if (showLoading && !fetchingPosts && scrollTop + clientHeight >= scrollHeight - 80)
+            getPosts()
     }
 
     useEffect(() => {
@@ -74,7 +85,7 @@ const Blog = () => {
         window.addEventListener('scroll', onScroll, { passive: true });
 
         return () => window.removeEventListener('scroll', onScroll);
-    }, [handleScroll, posts, nextPageToken, showLoading, fetchingPosts, blogTag]);
+    }, [handleScroll, posts, nextPageToken, showLoading, fetchingPosts, blogTag, menuHeight]);
     
     // this useEffect gets triggered just once (when the page loads)
     useEffect(() => {
@@ -87,10 +98,14 @@ const Blog = () => {
 
     return (
         <div className="page-container">
-            <Banner onClick={toggleMenu} />
+            <Banner 
+                onClick={toggleMenu}
+            />
             <NavBarMenu 
                 onClick={getPosts}
+                onHeightMenuChange={updateHeightMenu}
                 showMenu={showMenu}
+                onOpenLink={() => setShowMenu(false)}
             />
             <Posts 
                 posts={posts}
