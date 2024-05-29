@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './styles/fonts.scss';
 import './styles/blog.scss';
 import Blog from './app/Blog';
 

@@ -1,0 +1,50 @@
+.menu {
+    width: 100%;
+    max-width: min-content;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4em;
+    font-family: faceless;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    margin: 0px 0px 30px 0px;
+    margin-top: -160px;
+    opacity: 0;
+    transition: margin-top .3s ease-in-out, opacity .3s ease-in-out;
+    z-index: 1;
+    &.opened {
+       margin-top: 0;
+       opacity: 1;
+    }
+    > div, > a {
+        text-decoration: none;
+        padding: 10px;
+        margin: 0 10px;
+        cursor: pointer;
+        color: #765e84;
+        transition: color .3s;
+        &:hover {
+            color: #000000bf;
+        }
+    }
+}
+
+@media (max-width: 1080px) {
+    .menu {
+        max-width: unset;
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        margin-top: -120px;
+    }
+    100% {
+        opacity: 1;
+        margin-top: 0;
+    }
+  }
