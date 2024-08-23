@@ -13,7 +13,11 @@ export const useBlogMainLogic = () => {
   const [menuHeight, setMenuHeight] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  const { blogId, apiKey } = getConfig();
+//   const { blogId, apiKey } = getConfig();
+
+  const blogId = '3288277498033260410'
+  const apiKey = 'AIzaSyAwo0hFxpZBlBSqjwxO3F29A0ICpVnnHG8'
+
   const postsRef = useRef(null);
 
   const toggleMenu = useCallback(() => setShowMenu(prev => !prev), []);
@@ -75,6 +79,7 @@ export const useBlogMainLogic = () => {
         })
         .catch(error => {
             console.error(error)
+            setShowLoading(false)
             return Promise.reject(error)
         });
   }, [blogId, apiKey, nextPageToken, blogTag]);
