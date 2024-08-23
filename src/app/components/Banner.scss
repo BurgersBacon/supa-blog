@@ -2,20 +2,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: 100%;
     padding: 0 30px;
-
     position: sticky;
     top: 0;
     background: #a27bb7;
     cursor: pointer;
     z-index: 2;
+    > svg {
+        z-index: 2;
+    }
+    .cover-background {
+        position: absolute;
+        width: 100%;
+        display: flex;
+        height: 800px;
+        background: #a27bb7;
+        bottom: 140px;
+        z-index: 1;
+    }
+}
+
+@media (max-width: 1560px) {
+    #banner > svg {
+            height: 140px;
+            width: 140px;
+            > image{
+                height: 140px;
+                width: 140px;
+            }
+    }
 }
 
 @media (max-width: 1080px) {
     #banner {
         padding-top: 30px;
-        width: 100%;
         padding-left: unset;
         padding : 30px;
         > svg {
@@ -33,7 +54,6 @@
     #banner {
         padding-top: 30px;
         height: 100px;
-        width: 100%;
         padding-left: unset;
         padding: 30px;
         > svg {

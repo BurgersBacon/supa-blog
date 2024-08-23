@@ -19,7 +19,7 @@ const Post = (({ post }) => {
     };
 
     return (
-        <div className={`post ${post.labels && post.labels && post.labels.includes('scripture') ? 'scripture' : ''}`} key={post.id}>
+        <div id={post.id} className={`post ${post.labels && post.labels && post.labels.includes('scripture') ? 'scripture' : ''}`} key={post.id}>
             {post.title &&
                 <h2>{post.title}</h2> 
             }

@@ -1,0 +1,12 @@
+.header-wrapper {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width: 1080px) {
+    .header-wrapper {
+        width: 100%;
+    }
+}

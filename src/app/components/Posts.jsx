@@ -4,7 +4,7 @@ import './Posts.scss'
 
 const RenderedPosts = (({ posts }) => {
     const renderedPosts = posts.map(post => {
-        return <Post post={post}/> 
+        return <Post key={post.id} post={post}/> 
     })
 
     return renderedPosts
@@ -24,13 +24,13 @@ const Posts = (({ posts, showLoading }) => {
 
     if (!posts || !posts.length)
         return (
-            <div id="posts" ref={ postsRef }>
+            <div ref={ postsRef }>
                 <Loading showLoading={ true } />
             </div>
         )
         
     return (
-        <div id="posts" className={ posts.length ? 'shown' : '' } ref={ postsRef }>
+        <div className={ posts.length ? 'shown' : '' } ref={ postsRef }>
             <RenderedPosts posts={ posts } />
             <Loading showLoading={ showLoading } />
         </div>

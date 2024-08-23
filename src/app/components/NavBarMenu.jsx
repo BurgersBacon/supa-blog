@@ -2,24 +2,33 @@ import { useEffect, useRef, useState } from 'react';
 import './NavBarMenu.scss'
 import Link from './Link'
 
-const NavBarMenu = (({ showMenu, onClick, onHeightMenuChange, onOpenLink }) => {
+const NavBarMenu = (({ showMenu, onClick, onHeightMenuChange, onOpenLink, isMobile }) => {
     const menuRef = useRef(null);
     const [styles, setStyles] = useState({})
     const [selectedItem, setSelectedItem] = useState('home')
 
-    const triggerSearch = ((tag) => {
-        setSelectedItem(tag)
+    const triggerSearch = ((tag, pageId = null) => {
+        setSelectedItem(tag || pageId)
         if (tag === 'home')
             tag = null
 
-        onClick(true, tag)
+        onClick(true, tag, pageId)
     })
 
     const updateStyles = () => {
         const clientHeight = menuRef?.current?.clientHeight;
+        let transition
+        if (isMobile)
+            transition = 'margin-top 0.6s cubic-bezier(0.34, 1.3, 0.64, 1)'
+        else
+            transition = !showMenu ? 'margin-top .6s cubic-bezier(0.25, 0.6, 0.25, 1)' : 'margin-top 0.6s cubic-bezier(0.34, 1.3, 0.64, 1)'
+
+        transition += ',opacity .5s ease-in-out'
+
         if (clientHeight) {
           setStyles({
-            marginTop: showMenu ? 0 : ((clientHeight + 30) * -1)
+            marginTop: showMenu ? 0 : ((clientHeight + 30) * -1),
+            transition
           });
           onHeightMenuChange(clientHeight + 30)
         }
@@ -56,8 +65,8 @@ const NavBarMenu = (({ showMenu, onClick, onHeightMenuChange, onOpenLink }) => {
                     home
             </div>
             <div 
-                onClick={() => triggerSearch('about')}
-                className={selectedItem === 'about' ? 'selected' : ''}
+                onClick={() => triggerSearch(null, '8664796053498369069')}
+                className={selectedItem === '8664796053498369069' ? 'selected' : ''}
             >
                     about
             </div>
