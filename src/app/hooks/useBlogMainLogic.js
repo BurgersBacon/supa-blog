@@ -110,9 +110,6 @@ export const useBlogMainLogic = () => {
 
         window.addEventListener('resize', handleResize);
 
-        if(isMobileLocal)
-            setShowMenu(false);            
-
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
