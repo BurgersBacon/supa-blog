@@ -138,7 +138,7 @@ export const useBlogMainLogic = () => {
                 if (!checkIfMobile())
                     setTimeout(() => {
                         setShowMenu(false)
-                    }, 2500)
+                    }, 5000)
             });
     }, [posts.length, fetchingPosts, getPosts]);
 
