@@ -23,7 +23,7 @@ const Post = (({ post }) => {
             {post.title &&
                 <h2>{post.title}</h2> 
             }
-            <span className="date">{moment(post.updated).format('Do MMMM YYYY')}</span>
+            <span className="date">{moment(post.published).format('Do MMMM YYYY, h:mm:ss a')}</span>
             <div
                 className="post-content" 
             >
