@@ -79,22 +79,22 @@ const NavBarMenu = (({ showMenu, onClick, onHeightMenuChange, onOpenLink, isMobi
             
             <Link 
                 label="X"
-                href="https://twitter.com/supa_haxor"
+                href="https://google.com"
                 onClick={onOpenLink}
             />
             <Link 
                 label="insta"
-                href="https://instagram.com/supa_haxor"
+                href="https://google.com"
                 onClick={onOpenLink}
             />
             <Link 
                 label="youtube"
-                href="https://www.youtube.com/@supahaxor"
+                href="https://google.com"
                 onClick={onOpenLink}
             />
             <Link 
                 label="github"
-                href="https://github.com/BurgersBacon/supa-blog"
+                href="https://google.com"
                 onClick={onOpenLink}
             />                
         </div>
