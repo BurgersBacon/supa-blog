@@ -94,7 +94,7 @@ const NavBarMenu = (({ showMenu, onClick, onHeightMenuChange, onOpenLink, isMobi
             />
             <Link 
                 label="github"
-                href="https://github.com/BurgersBacon/supa-blog"
+                href="https://github.com/supa-haxor"
                 onClick={onOpenLink}
             />                
         </div>
