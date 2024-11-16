@@ -6,7 +6,7 @@
     padding: 0 30px;
     position: sticky;
     top: 0;
-    background: #a27bb7;
+    background: #f9f9f9;
     cursor: pointer;
     z-index: 2;
     > svg {
@@ -17,7 +17,7 @@
         width: 100%;
         display: flex;
         height: 800px;
-        background: #a27bb7;
+        background: #f9f9f9;
         bottom: 140px;
         z-index: 1;
     }
@@ -27,6 +27,7 @@
     #banner > svg {
             height: 140px;
             width: 140px;
+            margin-bottom: 20px;
             > image{
                 height: 140px;
                 width: 140px;
@@ -39,6 +40,7 @@
         padding-top: 30px;
         padding-left: unset;
         padding : 30px;
+        margin-bottom: 0;
         > svg {
             height: 140px;
             width: 140px;
@@ -56,6 +58,7 @@
         height: 100px;
         padding-left: unset;
         padding: 30px;
+        margin-bottom: 0;
         > svg {
             height: 100px;
             width: 100px;

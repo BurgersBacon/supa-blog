@@ -1,5 +1,5 @@
 .post {
-    background-color: #ffffff;
+    background-color: #f9f9f9;
     padding: 30px 50px;
     border-radius: 8px;
     margin-bottom: 18px;
@@ -28,7 +28,7 @@
         -webkit-font-smoothing: antialiased;
     }
     &.scripture {
-        box-shadow: #f6e27a 1px 1px 12px;
+        // box-shadow: #f6e27a 1px 1px 12px;
         transition: box-shadow 1s ease-out;
         animation: boxShadowAnimation 2s infinite alternate;
         > span.date {
@@ -70,11 +70,11 @@
     }
 }
 
-@keyframes boxShadowAnimation {
-    from {
-        box-shadow: #f6e27a 1px 1px 2px;
-    }
-    to {
-        box-shadow: #f6e27a 1px 1px 12px;
-    }
-  }
+// @keyframes boxShadowAnimation {
+//     from {
+//         box-shadow: #f6e27a 1px 1px 2px;
+//     }
+//     to {
+//         box-shadow: #f6e27a 1px 1px 12px;
+//     }
+//   }

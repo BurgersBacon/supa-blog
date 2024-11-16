@@ -1,4 +1,4 @@
-import supaHax0rIcon from '../../assets/images/l33t_supa_h4x0r_icon.svg'
+import supaHax0rIcon from '../../assets/images/Untitled_Artwork 2.gif'
 import './Banner.scss'
 
 const Banner = (({ onClick }) => {
